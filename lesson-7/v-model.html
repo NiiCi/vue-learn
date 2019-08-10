@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model 中的值 是 input textarea 等表单中的 value 值-->
+        <input type="text" v-model="textmessage">  &nbsp;&nbsp;
+        <span>input text 框中的数据 : {{textmessage}}</span>
+        <br><br>
+        <textarea v-model="textareamessage"></textarea> &nbsp;&nbsp;
+        <span>textarea 框中的数据 : {{textareamessage}}</span>
+        <br><br>
+        单复选框: <input type="checkbox" id="onecheckbox" v-model="checkboxflag"> <label for="onecheckbox">{{checkboxflag}}</label>
+        <br><br>
+        多复选框:
+        <input type="checkbox" id="jack" value="jack" v-model="checkedNames"> <label for="jack">jack</label>
+        <input type="checkbox" id="john" value="john" v-model="checkedNames"> <label for="john">john</label>
+        <input type="checkbox" id="rose" value="rose" v-model="checkedNames"> <label for="rose">rose</label>
+        <span>选中的值 : {{checkedNames}}</span>
+        <br><br>
+        单选按钮:
+        <input type="radio" id="male"  value="男" v-model="radiovalue"><label for="male">男</label>
+        <input type="radio" id="female" value="女" v-model="radiovalue"><label for="female">女</label>
+        <input type="radio" id="guaiwu" value="人妖" v-model="radiovalue"><label for="guaiwu">人妖</label>
+        <span>选中的值 : {{radiovalue}}</span>
+        <br><br>
+        下拉框:
+        <select name="" id="" v-model="selected">
+            <option value="" disabled>请选择</option>
+            <option value="0">A</option>
+            <option value="1">B</option>
+            <option value="2">C</option>
+        </select>
+        <span>选中的值 : {{selected}}</span>
+    </div>
+    <!-- 开发环境   -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <!-- 生产环境  -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>-->
+    <!-- axios 依赖 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                textmessage:"",
+                textareamessage:"",
+                checkboxflag:false,
+                checkedNames:[],
+                radiovalue:"",
+                selected:""
+            }
+        })
+    </script>
+</body>
+</html>

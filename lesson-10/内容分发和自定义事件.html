@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--
+            通过 v-on 将父组件中的方法传递到子组件上
+            子组件定义了一个删除方法，通过 this.$emit.("") --- 自定义事件名,来调用父组件传递的方法
+        -->
+        <todo>
+            <todo-context slot="todo-context" v-for="(item,index) in context" v-bind:context="item" :index="index" v-on:remove="removecontext(index);"></todo-context>
+            <todo-title slot="todo-title" v-bind:title="title"></todo-title>
+        </todo>
+    </div>
+
+    <template id="todo">
+        <!--
+            使用 <slot> 元素作为承载分发内容的出口，作者称其为 插槽，用来指定组件的位置
+            在代码中 todo-context 位置在todo-title 之上，但是通过 slot 指定位置 title 其实是在 context 之上的
+        -->
+        <div>
+            <slot name="todo-title"></slot>
+            <ul>
+                <slot name="todo-context"></slot>
+            </ul>
+        </div>
+    </template>
+    <template id="todo-title">
+        <div>{{title}}</div>
+    </template>
+    <template id="todo-context">
+        <li>{{index}} --- {{context.username}} --- {{context.age}} <button @click="remoe()">删除</button></li>
+    </template>
+    <!-- 开发环境   -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <!-- 生产环境  -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>-->
+    <script type="text/javascript">
+        Vue.component("todo",{
+            template: "#todo"
+        });
+
+        Vue.component("todo-title",{
+            props:[
+                "title"
+            ],
+            template: "#todo-title"
+        });
+
+        Vue.component("todo-context",{
+            props:[
+                "context",
+                "index"
+            ],
+            template: "#todo-context",
+            methods: {
+                remoe :function () {
+                    this.$emit("remove");
+                }
+            }
+        });
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                title: "标题",
+                context:[
+                    {
+                    username: "张三",
+                    age : 18
+                    },
+                    {
+                    username: "李四",
+                    age : 19
+                    },
+                    {
+                    username: "王五",
+                    age : 20
+                    },
+                    {
+                    username: "赵六",
+                    age : 21
+                    }
+                ]
+            },
+            methods:{
+                removecontext: function (index) {
+                    this.context.splice(index,1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

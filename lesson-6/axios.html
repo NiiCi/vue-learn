@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios 异步通信</title>
+</head>
+<body>
+    <div id="app">
+        <p>名称: {{info.name}}</p>
+        <ul>
+            <li v-for="item in info.links">
+                {{item.name}} --- {{item.url}}
+            </li>
+        </ul>
+    </div>
+    <!-- 开发环境   -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <!-- 生产环境  -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>-->
+    <!-- axios 依赖 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:"#app",
+            data(){
+                return {
+                    info:{
+                        name: "",
+                        url: "",
+                        page: 0,
+                        isNonProfit: true,
+                        address: {
+                            street: "",
+                            city: "",
+                            country: ""
+                        },
+                        links: []
+                    }
+                }
+            },
+            mounted() {
+                axios
+                    .get("data.json")
+                    .then(response => this.info = response.data);
+                axios
+                    .get("data.json")
+                    .then(response => console.log(response));
+            }
+        })
+    </script>
+</body>
+</html>
